@@ -2,6 +2,28 @@ import _ from 'lodash';
 import './style.css';
 import Icon from './icon.jpg';
 import Data from './data.xml';
+import axios from 'axios';
+import cors from 'cors';
+
+var intervalID = window.setInterval(miFuncion, 1000);
+
+var foo = function () {
+    clearInterval(intervalID);
+};
+
+function miFuncion() {
+  console.log('interval');
+  axios.get('http://localhost:3000/login/', cors)
+  .then(function (response) {
+    console.log(response);
+    console.log('over');
+    foo();
+  })
+  .catch(function (error) {
+    console.log(error);
+    console.log('more');
+  });
+}
 
 function component() {
   var element = document.createElement('div');
@@ -19,7 +41,6 @@ function component() {
 
   console.log(Data);
 
-  return element;
 }
 
 document.body.appendChild(component());
